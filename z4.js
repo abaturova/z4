@@ -54,6 +54,8 @@ Array.prototype.insertSort = function () {
 // 4 Сортировка слиянием
 Array.prototype.mergeSort = function () {
 
+	
+
 	const merge = (arrL,arrR) => {
 		let arrS = []
 		let i = j = 0
@@ -75,44 +77,46 @@ Array.prototype.mergeSort = function () {
 		return arrS
 	}
 
-	const sorting = this => {
+	const sorting = that => {
 		let arr1 = []
 		let arr2 = []
-		let mid = this.length/2
-		if(this.length === 1){
-			return this
+		let mid = that.length/2
+		if(that.length === 1){
+			return that
 		}
 		for(let i=0; i<mid;i++){
-			arr1.push(this[i])
+			arr1.push(that[i])
 		}
-		for(let i=mid; i<this.length;i++){
-			arr2.push(this[i])
+		for(let i=mid; i<that.length;i++){
+			arr2.push(that[i])
 		}
 
 		return merge(sorting(arr1),sorting(arr2))
 	}
-	return sorting(this)
+	const that = this
+	return sorting(that)
 }
-
 
 // 5 Быстрая сортировка
 Array.prototype.quickSort = function () {
 
-	const part = (this, inL, inR) => {
-		let pivot = this[Math.floor((inL + inR) / 2)]
+	const that = this
+
+	const part = (that,inL,inR) => {
+		let pivot = that[Math.floor((inL + inR) / 2)]
 		let i = inL
 		let j = inR
 		while (i <= j) {
-	        while (this[i] < pivot) {
+	        while (that[i] < pivot) {
 	            i++
 	        }
-	        while (this[j] > pivot) {
+	        while (that[j] > pivot) {
 	            j--
 	        }
 	        if (i <= j) {
-	            let f = this[i]
-	            this[i] = this[j]
-	            this[j] = f
+	            let f = that[i]
+	            that[i] = that[j]
+	            that[j] = f
 	            i++
 	            j--
 	        }
@@ -120,28 +124,28 @@ Array.prototype.quickSort = function () {
 	    return i
 	}
 
-	const qSort = (this, inL, inR) => {
+	const qSort = (that,inL,inR) => {
 	    let index
-	    if (this.length > 1) {
-	        index = part(this, inL, inR)
+	    if (that.length > 1) {
+	        index = part(that, inL, inR)
 	        if (inL < index - 1) {
-	            qSort(this, inL, index-1)
+	            qSort(that, inL, index-1)
 	        }
 	        if (index < inR) {
-	            qSort(this, index, inR)
+	            qSort(that, index, inR)
 	        }
 	    }
-	    return this
+	    return that
 	}
 
-	let result = qSort(this, 0, this.length-1)
+	let result = qSort(that, 0, that.length-1)
 	return result
 }
 
 
 let arr = [1,5,-3,6,10,0,-8]
-console.log(arr.selectSort())
-console.log(arr.bubbleSort())
-console.log(arr.insertSort())
-//console.log(arr.mergeSort())
+//console.log(arr.selectSort())
+//console.log(arr.bubbleSort())
+//console.log(arr.insertSort())
+console.log(arr.mergeSort())
 //console.log(arr.quickSort())
