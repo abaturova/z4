@@ -1,58 +1,58 @@
 
 // 1 Сортировка выбором
-Array.prototype.selectSort = function (arr) {
-	
-	let l = arr.length - 1
+Array.prototype.selectSort = function () {
+
+	let l = this.length 
 	for(let i=0; i<l;i++){
 		let min
 		min = i
 		for(let j=i+1; j<l;j++){
-			if(arr[min] > arr[j]){
+			if(this[min] > this[j]){
 				min = j
 			}
 		}
-		let min2 = arr[i]
-		arr[i] = arr[min]
-		arr[min] = min2
+		let min2 = this[i]
+		this[i] = this[min]
+		this[min] = min2
 
 	}
-	return arr
+	return this
 }
 
 // 2 Сортировка пузырьком
-Array.prototype.bubbleSort = function (arr) {
+Array.prototype.bubbleSort = function () {
 
-	let l = arr.length - 1
+	let l = this.length
 	for(let i=0; i<l; i++){
 		for(let j=0; j<l-1;j++){
-			if(arr[j] > arr[j+1]){
-				let b = arr[j]
-				arr[j] = arr[j+1]
-				arr[j+1] = b
+			if(this[j] > this[j+1]){
+				let b = this[j]
+				this[j] = this[j+1]
+				this[j+1] = b
 			}
 		}
 	}
-	return arr
+	return this
 }
 
 
 // 3 Сортировка вставками
-Array.prototype.insertSort = function (arr) {
+Array.prototype.insertSort = function () {
 
-	for (let i=1; i<arr.length; i++){ 
-	    let m = arr[i]
+	for (let i=1; i<this.length; i++){ 
+	    let m = this[i]
 	    let j = i
-	    while(j > 0 && arr[j-1] > m){
-	      arr[j] = arr[j-1]
+	    while(j > 0 && this[j-1] > m){
+	      this[j] = this[j-1]
 	      j--
 	    }
-	    arr[j] = m; 
+	    this[j] = m; 
 	}
-	return arr
+	return this
 }
 
 // 4 Сортировка слиянием
-Array.prototype.mergeSort = function (arr) {
+Array.prototype.mergeSort = function () {
 
 	const merge = (arrL,arrR) => {
 		let arrS = []
@@ -75,44 +75,44 @@ Array.prototype.mergeSort = function (arr) {
 		return arrS
 	}
 
-	const sorting = arr => {
+	const sorting = this => {
 		let arr1 = []
 		let arr2 = []
-		let mid = arr.length/2
-		if(arr.length === 1){
-			return arr
+		let mid = this.length/2
+		if(this.length === 1){
+			return this
 		}
 		for(let i=0; i<mid;i++){
-			arr1.push(arr[i])
+			arr1.push(this[i])
 		}
-		for(let i=mid; i<arr.length;i++){
-			arr2.push(arr[i])
+		for(let i=mid; i<this.length;i++){
+			arr2.push(this[i])
 		}
 
 		return merge(sorting(arr1),sorting(arr2))
 	}
-	return sorting(arr)
+	return sorting(this)
 }
 
 
 // 5 Быстрая сортировка
-Array.prototype.quickSort = function (arr) {
+Array.prototype.quickSort = function () {
 
-	const part = (arr, inL, inR) => {
-		let pivot = arr[Math.floor((inL + inR) / 2)]
+	const part = (this, inL, inR) => {
+		let pivot = this[Math.floor((inL + inR) / 2)]
 		let i = inL
 		let j = inR
 		while (i <= j) {
-	        while (arr[i] < pivot) {
+	        while (this[i] < pivot) {
 	            i++
 	        }
-	        while (arr[j] > pivot) {
+	        while (this[j] > pivot) {
 	            j--
 	        }
 	        if (i <= j) {
-	            let f = arr[i]
-	            arr[i] = arr[j]
-	            arr[j] = f
+	            let f = this[i]
+	            this[i] = this[j]
+	            this[j] = f
 	            i++
 	            j--
 	        }
@@ -120,23 +120,28 @@ Array.prototype.quickSort = function (arr) {
 	    return i
 	}
 
-	const qSort = (arr, inL, inR) => {
+	const qSort = (this, inL, inR) => {
 	    let index
-	    if (arr.length > 1) {
-	        index = part(arr, inL, inR)
+	    if (this.length > 1) {
+	        index = part(this, inL, inR)
 	        if (inL < index - 1) {
-	            qSort(arr, inL, index-1)
+	            qSort(this, inL, index-1)
 	        }
 	        if (index < inR) {
-	            qSort(arr, index, inR)
+	            qSort(this, index, inR)
 	        }
 	    }
-	    return arr
+	    return this
 	}
-	let result = qSort(arr, 0, arr.length-1)
+
+	let result = qSort(this, 0, this.length-1)
 	return result
 }
 
 
 let arr = [1,5,-3,6,10,0,-8]
-console.log(arr.mergeSort())
+console.log(arr.selectSort())
+console.log(arr.bubbleSort())
+console.log(arr.insertSort())
+//console.log(arr.mergeSort())
+//console.log(arr.quickSort())
